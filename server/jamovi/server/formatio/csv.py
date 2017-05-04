@@ -84,32 +84,61 @@ def read(data, path):
 
         column_names = fix_names(column_names)
 
+        # first we add all the columns to the data set
+        # and we create a column_writer for each column
+
         for i in range(len(column_names)):
             column_name = column_names[i]
             data.dataset.append_column(column_name)
             column = data.dataset[i]
+
+            # this is where ColumnWriter is constructed
+            # you want to add another argument so that each of the column_writers
+            # have a shared object. a dictionary would be good (what it R would be a named list)
+
             column_writers.append(ColumnWriter(column, i))
             column_count += 1
 
         row_count = 0
 
+        # then we 'seek' back to the beginning of the file
+        # the csv reading is done in two parts, first the columns are
+        # 'examined', and then they are 'read'
+
         csvfile.seek(0)
         reader = csv.reader(csvfile, dialect)
         first = True
+
+        # now we have a loop within a loop
+        # we iterate over the rows
+        # and then we iterate over the column_writers
+        # so this is the examination part
+        # this is where the column_writer determines
+        # what sort of column it is
 
         for row in reader:
             if first:
                 first = False
             else:
                 for i in range(column_count):
+                    # we call examine_row()
                     column_writers[i].examine_row(row)
 
                 row_count += 1
+
+        # once all the rows have been examined, the column_writers ruminate
+        # if they haven't decided what sort of column they are yet, this
+        # is where they make a final determination
 
         for column_writer in column_writers:
             column_writer.ruminate()
 
         data.dataset.set_row_count(row_count)
+
+        # now the columns have been examined,
+        # we can begin parsing and populating the data set
+
+        # first we seek back to the beginning of the file
 
         csvfile.seek(0)
         reader = csv.reader(csvfile, dialect)
@@ -122,15 +151,23 @@ def read(data, path):
                 first = False
             else:
                 for i in range(column_count):
+                    # now we're calling parse_row()
                     column_writers[i].parse_row(row, row_no)
                 row_no += 1
 
 
 class ColumnWriter:
+
+    # __init__ is the constructor, you'll want to add another argument here
+    # and assign it to self, this will be the shared object. maybe called it
+    # file_options, or global_options, or something like that
+
     def __init__(self, column, column_index):
         self._column = column
         self._column_index = column_index
 
+        # these are all the things the ColumnWriter determines about the column
+        # it uses these to determine what sort of column it is
         self._only_integers = True
         self._only_floats = True
         self._is_empty = True
@@ -140,10 +177,15 @@ class ColumnWriter:
         self._includes_na = False
         self._dps = 0
 
+        # you'll also want to add only_euro_floats or something like that
+
     def examine_row(self, row):
 
         if self._column_index >= len(row):
             return
+
+        # each ColumnWriter knows its column index, and so it gets its
+        # value for the row
 
         value = row[self._column_index]
 
@@ -158,6 +200,7 @@ class ColumnWriter:
 
         self._unique_values.add(value)
 
+        # you'll want to do something like this, but for self._only_euro_floats
         if self._only_integers:
             try:
                 i = int(value)
@@ -173,6 +216,9 @@ class ColumnWriter:
             self._only_floats = False
 
     def ruminate(self):
+
+        # then during rumination, if the self._only_euro_floats is true
+        # you can set self._global_options['euro_floats'] = True
 
         many_uniques = False
         if len(self._unique_values) >= 49:
@@ -226,6 +272,10 @@ class ColumnWriter:
                 self._column[row_no] = int(value)
 
         elif self._measure_type == MeasureType.CONTINUOUS:
+
+            # this parsing will need to be handled differently if
+            # self._global_options['only_euro_floats'] is True
+
             if value is None:
                 self._column[row_no] = float('nan')
             else:
