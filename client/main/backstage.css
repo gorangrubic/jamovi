@@ -3,7 +3,7 @@
     position: fixed ;
     left: 0 ;
     top: 0 ;
-    background-color: #F0F0F0 ;
+    background-color: #282c34 ;
     z-index: 100 ;
     width: 100% ;
     height: 100% ;
@@ -16,9 +16,10 @@
     top: 0 ;
     height: 100% ;
     z-index: 10 ;
-    background-color: #3E6DA9 ;
-    color: #FFFFFF ;
+    background-color: #21252b ;
+    color: #c2c0c3 ;
     padding: 20px 0px;
+    border-right: 1.5px solid #181a1f ;
 }
 
 .silky-bs-logo {
@@ -36,7 +37,7 @@
     width: 40px ;
     height: 40px ;
     box-sizing: border-box ;
-    border: 3px solid white ;
+    border: 3px solid #c2c0c3 ;
     border-radius: 50% ;
     text-align: center ;
     vertical-align: middle ;
@@ -72,11 +73,11 @@
 }
 
 .silky-bs-op-button.selected {
-    background-color: #6E96CA ;
+    background-color: #545255 ;
 }
 
 .silky-bs-mid {
-    color: #555555 ;
+    color: #c2c0c3 ;
 }
 
 .silky-bs-places-panel {
@@ -92,13 +93,13 @@
 }
 
 .silky-bs-mid .silky-bs-places {
-    border-right: 1px solid #DDDDDD ;
+    border-right: 1px solid #999999 ;
     bottom: 24px ;
 }
 
 .silky-bs-mid hr {
     height: 1px ;
-    background-color: #CCCCCC ;
+    background-color: #999999 ;
 }
 
 .silky-bs-place {
@@ -111,6 +112,7 @@
     background-repeat: no-repeat ;
     background-position: 8px center ;
     padding-left: 40px ;
+    opacity: 0.6 ;
 }
 
 .silky-bs-place-separator {
@@ -128,7 +130,7 @@
 
 .silky-bs-place:active,
 .silky-bs-place[data-selected] {
-    background-color: #BACDE6 ;
+    background-color: #3b393c ;
 }
 
 .silky-bs-place[data-place="recent"] {
@@ -160,6 +162,7 @@
     padding: 18px 18px 18px 0px ;
     box-sizing: border-box ;
     overflow: hidden;
+    opacity: 0.6 ;
 }
 
 .silky-bs-choices-list {

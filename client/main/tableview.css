@@ -11,9 +11,9 @@
     overflow: auto ;
     width: 100% ;
     height: 100% ;
-    border-right: 1px solid #ACACAC ;
+    border-right: 1px solid #181a1f ;
     box-sizing: border-box ;
-    background-color: #F8F8F8 ;
+    background-color: #21252b ;
 }
 
 .silky-column {
@@ -45,9 +45,9 @@
     top: 0 ;
     border-width: 0 1px 1px 0 ;
     border-style: solid ;
-    border-image: linear-gradient(to top, #ACACAC, rgba(0,0,0,0));
+    border-image: linear-gradient(to top, #181a1f, rgba(0,0,0,0));
     padding: 3px 6px 3px 28px;
-    background-color: #E6E6E6 ;
+    background-color: #21252b ;
     border-image-slice: 1 ;
     box-sizing: border-box ;
     overflow: hidden;
@@ -59,8 +59,7 @@
 
 .silky-column-header.highlighted,
 .silky-row-header-cell.highlighted {
-    background-color: #CCCCCC ;
-    color: #3E6DA9 ;
+    color: #999ca3 ;
 }
 
 .silky-row-header-cell.virtual {
@@ -175,7 +174,7 @@ input.silky-table-cell-selected {
 
 .silky-table-body {
     position: absolute ;
-    background-color: white ;
+    background-color: #282c34 ;
 }
 
 .silky-row-header-cell,
@@ -187,18 +186,17 @@ input.silky-table-cell-selected {
 }
 
 .silky-row-header-cell {
-    background-color: #E6E6E6 ;
+    background-color: #21252b ;
     text-align: center ;
     border-width: 0 1px 1px 0 ;
     border-style: solid ;
     border-color: #ACACAC ;
-    border-image: linear-gradient(to left, #ACACAC, rgba(0,0,0,0)) 1 100% ;
+    border-image: linear-gradient(to left, #181a1f, rgba(0,0,0,0)) 1 100% ;
     border-image-slice: 1 ;
     box-sizing: border-box ;
 }
 
 .silky-column-cell {
-    background-color: white ;
-    border-right: 1px solid #DEDEDE ;
-    border-bottom: 1px solid #DEDEDE ;
+    border-right:  1px solid #313540 ;
+    border-bottom: 1px solid #313540 ;
 }

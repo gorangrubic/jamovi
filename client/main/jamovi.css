@@ -10,7 +10,7 @@ html, body {
     padding: 0;
     margin: 0;
     height: 100%;
-    color: #333333 ;
+    color: #abb2bf ;
 }
 
 body {
@@ -19,7 +19,7 @@ body {
     line-height: 1.1;
     font-weight: 400;
     font-style: normal;
-    background-color: #3E6DA9 ;
+    background-color: #21252b ;
     padding: 0 ;
     cursor: default ;
     display: flex ;
@@ -128,19 +128,20 @@ body.windows.electron #header-buttons {
 
 #main-view {
     padding-top: 6px ;
-    border-top: 1px solid #D0D0D0 ;
-    background-color: #E6E6E6 ;
+    border-top: 1.5px solid #181a1f ;
+    background-color: #21252b ;
     flex-grow: 1;
 }
 
 #main-options {
     background-color: inherit;
-    border: 1px solid #ACACAC ;
+    border: 1px solid #69707a ;
 }
 
 #results {
     font-style: sans-serif ;
-    border: 1px solid #ACACAC ;
+    border-left: 1px solid #181a1f ;
+    border-top: 1px solid #181a1f ;
 }
 
 #results h1 {

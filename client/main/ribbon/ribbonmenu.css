@@ -3,13 +3,13 @@
 .jmv-ribbon-button {
     display: inline-block ;
     position: relative ;
-    background-color: #F0F0F0 ;
+    background-color: #282c34 ;
     border: 0 ;
     width: 74px ;
     padding: 2px ;
     font-size: 80% ;
     text-align: center ;
-    color: #555555 ;
+    color: #999ca3 ;
     border-radius: 1px ;
 }
 

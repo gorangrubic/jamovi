@@ -1,14 +1,14 @@
 
 .jmv-ribbon {
     width: 100% ;
-    color: #777777 ;
+    color: #282c34 ;
     -webkit-app-region: drag ;
 }
 
 .jmv-ribbon-tab {
     display: inline-block ;
     background-color : inherit ;
-    color: white ;
+    color: #6b717e ;
     padding: 8px 20px ;
     -webkit-app-region: no-drag;
 }
@@ -40,12 +40,18 @@ body.windows .jmv-ribbon-appmenu {
 }
 
 .jmv-ribbon-tab.selected {
-    background-color : #EDEDED ;
-    color: #3E6DA9 ;
+    background-color : #282c34 ;
+    color: #abb2bf ;
+    position: relative ;
+    top: 1px ;
+    border-left:  1px solid #181a1f ;
+    border-right: 1px solid #181a1f ;
+    border-top:   1px solid #181a1f ;
 }
 
 .jmv-ribbon-body {
-    background-color : #F0F0F0 ;
+    border-top: 1px solid #181a1f ;
+    background-color : #282c34 ;
     height: 50px ;
     padding: 6px 6px ;
     -webkit-app-region: no-drag;
