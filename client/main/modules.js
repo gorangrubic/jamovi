@@ -24,6 +24,10 @@ const ModulesBase = Backbone.Model.extend({
         this._parent = args.parent;
         this._retrieved = false;
 
+        this._instance.settings().on('change:modules', (modules) => {
+            this._setup(modules.changed.modules);
+        });
+
         this[Symbol.iterator] = () => {
             let index = 0;
             return {
@@ -61,7 +65,7 @@ const ModulesBase = Backbone.Model.extend({
     retrieve() {
 
     },
-    setup(modulesPB) {
+    _setup(modulesPB) {
 
         let modules = [ ];
 
@@ -100,7 +104,7 @@ const Available = ModulesBase.extend({
 
         this._instance.retrieveAvailableModules()
             .then(storeResponse => {
-                this.setup(storeResponse.modules);
+                this._setup(storeResponse.modules);
                 this.set('status', 'done');
             }, error => {
                 this.set('error', error);

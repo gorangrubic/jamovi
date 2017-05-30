@@ -37,14 +37,6 @@ ribbonModel.on('analysisSelected', function(info) {
     analyses.createAnalysis(info.name, info.ns);
 });
 
-coms.on('broadcast', function(broadcast) {
-    if (broadcast.payloadType === 'SettingsResponse') {
-        let settings = coms.Messages.SettingsResponse.decode(broadcast.payload);
-        backstageModel.set('settings', settings);
-        modules.setup(settings.modules);
-    }
-});
-
 coms.on('close', function() {
     window.alert('Connection lost\n\nThe processing engine has ended unexpectedly.\nThis jamovi window will now close down. Sorry for the inconvenience.\n\nIf you could report your experiences to the jamovi team, that would be appreciated.');
     host.closeWindow(true);
@@ -265,7 +257,7 @@ $(document).ready(() => {
         if ( ! instance.get('hasDataSet'))
             return instance.open('');
 
-    }).then(() => {
+    });/*.then(() => {
 
         let settings = new coms.Messages.SettingsRequest();
         let request = new coms.Messages.ComsMessage();
@@ -280,5 +272,5 @@ $(document).ready(() => {
         let settings = coms.Messages.SettingsResponse.decode(response.payload);
         backstageModel.set('settings', settings);
         modules.setup(settings.modules);
-    });
+    });*/
 });

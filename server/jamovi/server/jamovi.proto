@@ -311,13 +311,22 @@ message ModuleMeta {
     bool new = 12;
 }
 
+message SettingValue {
+    string name = 1;
+    oneof value {
+        string s = 2;
+    }
+}
+
 message SettingsRequest {
+    repeated SettingValue settings = 4;
 }
 
 message SettingsResponse {
     repeated DataSetEntry recents = 1;
     repeated DataSetEntry examples = 2;
     repeated ModuleMeta modules = 3;
+    repeated SettingValue settings = 4;
 }
 
 message StoreRequest {

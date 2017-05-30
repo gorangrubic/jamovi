@@ -976,11 +976,32 @@ class Instance:
 
     def _on_settings(self, request=None):
 
-        settings = Settings.retrieve('backstage')
+        settings = Settings.retrieve('main')
 
-        recents = settings.get('recents', [ ])
+        if request and request.settings:
+
+            settings_pb = request.settings
+
+            for setting_pb in settings_pb:
+                name = setting_pb.name
+                if setting_pb.HasField('s'):
+                    value = setting_pb.s
+                    settings.set(name, value)
+
+            for instanceId, instance in Instance.instances.items():
+                if instance is not self and instance.is_active:
+                    instance._on_settings()
 
         response = jcoms.SettingsResponse()
+
+        for name in settings:
+            value = settings.get(name)
+            if isinstance(value, str):
+                setting_pb = response.settings.add()
+                setting_pb.s = value
+
+        settings = Settings.retrieve('backstage')
+        recents = settings.get('recents', [ ])
 
         for recent in recents:
             recent_pb = response.recents.add()

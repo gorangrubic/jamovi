@@ -17,6 +17,8 @@ const Analyses = require('./analyses');
 const DataSetViewModel = require('./dataset').DataSetViewModel;
 const OptionsPB = require('./optionspb');
 
+const Settings = require('./utils/settings');
+
 const Instance = Backbone.Model.extend({
 
     initialize() {
@@ -24,6 +26,8 @@ const Instance = Backbone.Model.extend({
         this.transId = 0;
         this.command = '';
         this.seqNo = 0;
+
+        this._settings = new Settings({ coms: this.attributes.coms });
 
         this._dataSetModel = new DataSetViewModel({ coms: this.attributes.coms });
         this._dataSetModel.on('columnsChanged', this._columnsChanged, this);
@@ -63,12 +67,13 @@ const Instance = Backbone.Model.extend({
         return this._instanceId;
     },
     dataSetModel() {
-
         return this._dataSetModel;
     },
     analyses() {
-
         return this._analyses;
+    },
+    settings() {
+        return this._settings;
     },
     connect(instanceId) {
 
@@ -78,9 +83,9 @@ const Instance = Backbone.Model.extend({
 
             return this._beginInstance(instanceId);
 
-        }).then(instanceId => {
+        }).then(() => {
 
-            this._instanceId = instanceId;
+            return this._settings.retrieve(this._instanceId);
 
         }).then(() => {
 
@@ -348,6 +353,22 @@ const Instance = Backbone.Model.extend({
         return coms.send(request);
     },
     _themeChanged() {
+
+        let coms = this.attributes.coms;
+
+        let settingsPB = new coms.Messages.SettingsRequest();
+        let settingPB = new coms.Messages.SettingValue();
+        settingPB.name = 'theme';
+        settingPB.s = this.attributes.theme;
+        settings.settings.push(settingPB);
+
+        let request = new coms.Messages.ComsMessage();
+        request.payload = settingsPB.toArrayBuffer();
+        request.payloadType = 'SettingsRequest';
+        request.instanceId = self.instanceId();
+
+        coms.send(request);
+
         for (let analysis of this.analyses())
             this._runAnalysis(analysis, 'theme');
     },
@@ -372,7 +393,7 @@ const Instance = Backbone.Model.extend({
             request.instanceId = instanceId;
 
         return coms.send(request).then(response => {
-            return response.instanceId;
+            this._instanceId = response.instanceId;
         });
     },
     _retrieveInfo() {
